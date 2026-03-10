@@ -34,7 +34,7 @@ pipeline {
         stage('4. Đồng bộ Cấu hình (SCP)') {
             steps {
                 echo 'Đẩy tệp cấu hình và Nginx sang App Server...'
-                sshagent(credentials: ['app-server-ssh-key']) {
+                sshagent(credentials: ['webservery']) {
                     sh "ssh -o StrictHostKeyChecking=no ${APP_SERVER_USER}@${APP_SERVER_IP} 'mkdir -p ~/doctor-appointment/SQLFile ~/doctor-appointment/nginx'"
                     sh "scp -o StrictHostKeyChecking=no docker-compose.yml ${APP_SERVER_USER}@${APP_SERVER_IP}:~/doctor-appointment/"
                     sh "scp -o StrictHostKeyChecking=no SQLFile/docaspythondb.sql ${APP_SERVER_USER}@${APP_SERVER_IP}:~/doctor-appointment/SQLFile/"
@@ -46,7 +46,7 @@ pipeline {
         stage('5. Deploy & Auto-Rollback') {
             steps {
                 echo 'Triển khai hệ thống với cơ chế Rollback an toàn...'
-                sshagent(credentials: ['app-server-ssh-key']) {
+                sshagent(credentials: ['webservery']) {
                     sh """ssh -o StrictHostKeyChecking=no ${APP_SERVER_USER}@${APP_SERVER_IP} '
                         cd ~/doctor-appointment
                         
