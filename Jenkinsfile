@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = 'ngoctahn24024/doctor-appointment'
         APP_SERVER_IP = '18.136.209.71'
         APP_SERVER_USER = 'ubuntu'
-        DOCKERHUB_CREDS = credentials('dockerhub-creds')
+        DOCKERHUB_CREDS = credentials('thanh24024')
     }
 
     stages {
